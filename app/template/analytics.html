@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h2>Analytics</h2>
+  <canvas id="chart" data-labels='{{ labels|tojson }}' data-counts='{{ counts|tojson }}'></canvas>
+
+  <script>
+    const chartEl = document.getElementById("chart");
+    const chartLabels = JSON.parse(chartEl.getAttribute('data-labels') || '[]');
+    const chartCounts = JSON.parse(chartEl.getAttribute('data-counts') || '[]');
+
+    new Chart(chartEl, {
+      type: "bar",
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: "Predictions",
+          data: chartCounts
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
